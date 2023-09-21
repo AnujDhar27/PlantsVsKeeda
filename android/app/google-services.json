@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "71480249807",
+    "project_id": "plants-vs-keeda",
+    "storage_bucket": "plants-vs-keeda.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:71480249807:android:bcd869974cdd771d84d6ba",
+        "android_client_info": {
+          "package_name": "com.plantvskeeda"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXxycyAaOMOQ0eIW2o_le2t9xINxvfZK4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
