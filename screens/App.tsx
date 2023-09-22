@@ -7,19 +7,53 @@ import Home1 from './Home1';
 import React from 'react';
 import SignUp from './SignUp';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Camera from './Camera';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import Upload from './Upload';
 import Profile from './Profile';
 import Home2 from './Home2';
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons  from 'react-native-vector-icons/MaterialCommunityIcons'
 const Stack = createStackNavigator();
-const Tab=createBottomTabNavigator();
+const Tab= createMaterialBottomTabNavigator();
+ 
 const BotTab=()=>{
   return(
-      <Tab.Navigator>
-        <Tab.Screen name='Home' component={Home1} options={{headerShown:false}}/>
-        <Tab.Screen name='Camera' component={Camera} options={{headerShown:false}}/>
-        <Tab.Screen name='Profile' component={Profile} options={{headerShown:false}}/>
-      </Tab.Navigator>
+      // <Tab.Navigator>
+      //   <Tab.Screen name='Home' component={Home1} options={{tabBarIcon:({color})=>(<MaterialCommunityIcons name='home' color={color} size={24}/>)}}/>
+      //   <Tab.Screen name='Camera' component={Camera}  options={{tabBarIcon:({color})=>(<MaterialCommunityIcons name='camera' color={color} size={24}/>)}}/>
+      //   <Tab.Screen name='Profile' component={Profile}  options={{tabBarIcon:({color})=>(<MaterialCommunityIcons name='account' color={color} size={24}/>)}}/>
+      // </Tab.Navigator>
+      <Tab.Navigator
+      screenOptions={({route})=>({
+        tabBarIcon:({focused,color})=>{
+          let iconName;
+          if(route.name==='Home')
+          {
+            iconName=focused
+            ?'home'
+            :'home-outline'
+          }
+          else if(route.name==='Upload')
+          {
+            iconName=focused
+            ?'upload'
+            :'upload-outline'
+          }
+          else if(route.name==='Profile')
+          {
+            iconName=focused
+            ?'account'
+            :'account-outline'
+          }
+          return <MaterialCommunityIcons name={iconName} size={24} color={color} />;
+        },
+        tabBarActiveTintColor: 'tomato',
+        tabBarInactiveTintColor: 'gray',
+      })}>
+      <Tab.Screen name='Home' component={Home1} />
+      <Tab.Screen name='Upload' component={Upload} />
+      <Tab.Screen name='Profile' component={Profile}  />
+    </Tab.Navigator>
   )
 }
 function App(){

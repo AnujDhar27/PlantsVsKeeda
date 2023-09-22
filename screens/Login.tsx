@@ -8,27 +8,46 @@ import {Text,TextInput,Button,SegmentedButtons} from 'react-native-paper';
 const Login=(props)=>{
     const [value,setValue]=useState('farmer');
     const [num,setNum]=useState('');
-    const [otp,setOTP]=useState();
+    const [code,setCode]=useState('');
     const [mail,setMail]=useState('');
     const [pass,setPass]=useState('');
     const [initializing, setInitializing] = useState(true);
     const [user, setUser] = useState();
+    const [confirm, setConfirm] = useState(null);
     function onAuthStateChanged(user) {
       setUser(user);
       if (initializing) setInitializing(false);
     }
     useEffect(() => {
       const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+      if(user){
+      if(value==='farmer')
+        props.navigation.navigate('Home1')
+      if(value==='scientist')
+      props.navigation.navigate('Home1')
+      }
       return subscriber; // unsubscribe on unmount
     }, []);
   
-    if (initializing) return null;
 
-    const handleLogin=()=>{
+    const handleOTP=async()=>{
+      const confirmation = await auth().signInWithPhoneNumber('+91'+num);
+      console.log(confirmation);
+      setConfirm(confirmation);
+    }
+    const handleLogin=async()=>{
       if(value==='farmer')
-        props.navigation.navigate('Home1');
+      {
+        try {
+          await confirm.confirm(code);
+          props.navigation.navigate('Home1');
+        } catch (error) {
+          console.log('Invalid code.');
+        }
+      }
+        
       else if(value==='scientist'){
-        auth()
+        await auth()
         .signInWithEmailAndPassword(mail,pass)
         .then(()=>{
           props.navigation.navigate('Home2');
@@ -61,11 +80,12 @@ const Login=(props)=>{
         {
             value:'farmer',
             label:'Farmer',
-            icon:'download',
+            icon:'seed-outline',
         },
         {
             value:'scientist',
             label:'Scientist',
+            icon:'glasses',
         }
       ]}
       />
@@ -77,7 +97,7 @@ const Login=(props)=>{
     style={{margin:20,}}
     keyboardType='numeric'
     value={num}
-    onChangeText={setNum}
+    onChangeText={(setNum)}
     />
       )}
     
@@ -88,6 +108,8 @@ const Login=(props)=>{
         label='OTP'
         style={{marginLeft:20,marginRight:20,}}
         keyboardType='numeric'
+        value={code}
+        onChangeText={setCode}
         />
     )}
     
@@ -111,8 +133,8 @@ const Login=(props)=>{
         onChangeText={setPass}
         />
     )}
-
-    <Button mode='contained' style={{marginTop:30,}} onPress={handleLogin}>Login</Button>
+    {value==='farmer'? <Button mode='contained-tonal' style={{marginTop:30,}} disabled={confirm!==null?true:false} onPress={handleOTP}>Send OTP</Button>:null }
+    <Button mode='contained' style={{marginTop:30,}} onPress={handleLogin} disabled={value==='farmer'&&code.length!==6?true:false}>Login</Button>
     <TouchableOpacity onPress={handleSignUp}><Text variant='bodyMedium' style={{marginTop:20,textAlign:'center'}}> Dont have an Account? <Text>Sign Up</Text></Text></TouchableOpacity>
     </View>
   )

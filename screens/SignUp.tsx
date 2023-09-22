@@ -6,7 +6,7 @@ import auth from '@react-native-firebase/auth';
 import {Text,TextInput,Button,SegmentedButtons,IconButton} from 'react-native-paper';
 
 const SignUp=()=>{
-    const [value,setValue]=useState('farmer');
+    const [value,setValue]=useState('scientist');
     const [name,setName]=useState('');
     const [mail,setMail]=useState('');
     const [pass,setPass]=useState('');
@@ -43,22 +43,7 @@ const SignUp=()=>{
             <Text style={{textAlign:'center',marginTop:100,}} variant='headlineMedium'>
                 Create your Account
             </Text>
-            <SegmentedButtons
-      value={value}
-      onValueChange={setValue}
-      style={{marginTop:20,}}
-      buttons={[
-        {
-            value:'farmer',
-            label:'Farmer',
-            icon:'download',
-        },
-        {
-            value:'scientist',
-            label:'Scientist',
-        }
-      ]}
-      />
+            <Button mode='contained-tonal' style={{marginTop:20,}}>Scientist</Button>
             <TextInput
             style={{marginTop:30,}}
             mode='outlined'
