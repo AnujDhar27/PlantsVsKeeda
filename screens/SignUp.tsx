@@ -1,11 +1,13 @@
 import React from 'react';
 import {KeyboardAvoidingView,Alert} from 'react-native';
 import { useState } from 'react';
+import firestore from '@react-native-firebase/firestore';
 
 import auth from '@react-native-firebase/auth';
 import {Text,TextInput,Button,SegmentedButtons,IconButton} from 'react-native-paper';
 
 const SignUp=()=>{
+    const db=firestore();
     const [value,setValue]=useState('scientist');
     const [name,setName]=useState('');
     const [mail,setMail]=useState('');
@@ -19,8 +21,11 @@ const SignUp=()=>{
         {
             auth()
             .createUserWithEmailAndPassword(mail,pass)
-            .then(()=>{
+            .then((userCred)=>{
+                const user=userCred.user;
                 Alert.alert('Account Created');
+                // const userCol=db.collection('Farmer').doc(user?.uid);
+                //  userCol.set({'disease':'','cure':''})
             })
             .catch(error=>{
                 if (error.code === 'auth/email-already-in-use') {

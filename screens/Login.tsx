@@ -41,6 +41,8 @@ const Login=(props)=>{
         try {
           await confirm.confirm(code);
           props.navigation.navigate('Home1');
+          setCode('');
+          setNum('');
         } catch (error) {
           console.log('Invalid code.');
         }
@@ -131,6 +133,7 @@ const Login=(props)=>{
         style={{marginLeft:20,marginRight:20,}}
         value={pass}
         onChangeText={setPass}
+        secureTextEntry={true}
         />
     )}
     {value==='farmer'? <Button mode='contained-tonal' style={{marginTop:30,}} disabled={confirm!==null?true:false} onPress={handleOTP}>Send OTP</Button>:null }

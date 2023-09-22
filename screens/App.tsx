@@ -11,18 +11,15 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import Upload from './Upload';
 import Profile from './Profile';
 import Home2 from './Home2';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons  from 'react-native-vector-icons/MaterialCommunityIcons'
+import Profile2 from './Profile2';
 const Stack = createStackNavigator();
 const Tab= createMaterialBottomTabNavigator();
  
 const BotTab=()=>{
   return(
-      // <Tab.Navigator>
-      //   <Tab.Screen name='Home' component={Home1} options={{tabBarIcon:({color})=>(<MaterialCommunityIcons name='home' color={color} size={24}/>)}}/>
-      //   <Tab.Screen name='Camera' component={Camera}  options={{tabBarIcon:({color})=>(<MaterialCommunityIcons name='camera' color={color} size={24}/>)}}/>
-      //   <Tab.Screen name='Profile' component={Profile}  options={{tabBarIcon:({color})=>(<MaterialCommunityIcons name='account' color={color} size={24}/>)}}/>
-      // </Tab.Navigator>
       <Tab.Navigator
       screenOptions={({route})=>({
         tabBarIcon:({focused,color})=>{
@@ -56,6 +53,36 @@ const BotTab=()=>{
     </Tab.Navigator>
   )
 }
+
+const BotTab2=()=>{
+  return(
+      <Tab.Navigator
+      screenOptions={({route})=>({
+        tabBarIcon:({focused,color})=>{
+          let iconName;
+          if(route.name==='Home')
+          {
+            iconName=focused
+            ?'home'
+            :'home-outline'
+          }
+          else if(route.name==='Profile')
+          {
+            iconName=focused
+            ?'account'
+            :'account-outline'
+          }
+          return <MaterialCommunityIcons name={iconName} size={24} color={color} />;
+        },
+        tabBarActiveTintColor: 'tomato',
+        tabBarInactiveTintColor: 'gray',
+      })}>
+      <Tab.Screen name='Home' component={Home2} />
+      <Tab.Screen name='Profile' component={Profile2}  />
+    </Tab.Navigator>
+  )
+}
+
 function App(){
   return (
     <NavigationContainer>
@@ -63,7 +90,7 @@ function App(){
         <Stack.Screen name ='Login' component={Login} options={{headerShown:false}}/>  
         <Stack.Screen name ='SignUp' component={SignUp} options={{headerShown:false}}/>
         <Stack.Screen name ='Home1' component={BotTab} options={{headerShown:false}}/>
-        <Stack.Screen name ='Home2' component={Home2} options={{headerShown:false}}/>
+        <Stack.Screen name ='Home2' component={BotTab2} options={{headerShown:false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
