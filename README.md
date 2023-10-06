@@ -1,4 +1,4 @@
-#Smart India Hackathon (PS1401):
+# Smart India Hackathon (PS1401):
 
 The problem statement we've chosen is the app based approach to create a platform for farmer where they can upload the photos of their diseased plants the model will provide them with the name of the disease as well as an organic/ pesticide remedy. However if they arent satisfied with the feedback they can opt to ask expert scientists. Scientists or experts receive these enquiries and can answer these queries or contact the farmer directly.
 
